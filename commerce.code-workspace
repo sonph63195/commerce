@@ -1,0 +1,95 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		// MARK: Better defaults
+		"editor.copyWithSyntaxHighlighting": false,
+		"editor.lightbulb.enabled": "off",
+		"editor.formatOnSave": true,
+		"editor.smoothScrolling": true,
+		"editor.cursorSmoothCaretAnimation": "on",
+		"editor.scrollbar.horizontal": "hidden",
+		"editor.wordWrap": "on",
+		"editor.wrappingStrategy": "advanced",
+		"editor.tabSize": 2,
+		"diffEditor.ignoreTrimWhitespace": false,
+		"files.insertFinalNewline": true,
+		"explorer.confirmDelete": false,
+		"workbench.sideBar.location": "left",
+		"git.enableCommitSigning": true,
+
+		// MARK: Reduced noise
+		"editor.hover.enabled": true,
+		"workbench.tips.enabled": false,
+		"git.decorations.enabled": false,
+		"explorer.decorations.colors": true,
+		"explorer.decorations.badges": false,
+		"editor.renderLineHighlight": "none",
+		"editor.occurrencesHighlight": "off",
+		"editor.gotoLocation.multipleReferences": "goto",
+		"editor.gotoLocation.multipleDefinitions": "goto",
+		"editor.gotoLocation.multipleDeclarations": "goto",
+		"editor.gotoLocation.multipleImplementations": "goto",
+		"editor.gotoLocation.multipleTypeDefinitions": "goto",
+
+		// MARK: Improved search
+		"search.useIgnoreFiles": false,
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/dist": true,
+			"**debug": true,
+			"**/package-lock.json": true,
+			"**/.next": true,
+			"**/data": true
+		},
+
+		// MARK: Suggestions
+		"editor.suggestFontSize": 12,
+		"editor.suggestLineHeight": 25,
+
+		// MARK: Terminal
+		"terminal.integrated.lineHeight": 1.3,
+		"terminal.integrated.fontSize": 13,
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+
+		// MARK: Other settings
+		"editor.lineHeight": 1.4,
+		"editor.fontLigatures": true,
+		"explorer.compactFolders": false,
+		"editor.defaultFormatter": "biomejs.biome",
+		"files.associations": {
+			"*.css": "tailwindcss"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "biomejs.biome"
+		},
+
+		// MARK: Custom labels name
+		"workbench.editor.customLabels.patterns": {
+			// App router
+			"**/app/*.tsx": "${filename}.${extname} (root)",
+			"**/app/**/index.*": "${dirname}(${filename}.${extname})",
+			"**/app/**/page.{*}": "${dirname} ∙ page",
+			"**/app/**/[[]*[]]/page.{*}": "${dirname(1)} / ${dirname} ∙ page",
+			"**/app/**/[[]*[]]/[[]*[]]/page.{*}": "${dirname(2)} / ${dirname(1)} / ${dirname} ∙ page",
+			"**/app/**/layout.{*}": "${dirname} ∙ (${dirname(1)}) ∙ layout",
+			"**/app/**/template.{*}": "${dirname} ∙ (${dirname(1)}) ∙ template",
+			"**/app/api/**/route.ts": "${dirname(1)}/${dirname} ∙ api",
+
+			// Components
+			"**/components/**/index.tsx": "${dirname} ∙ (${dirname(1)})component",
+			"**/components/**/*.tsx": "${filename} ∙ (${dirname(1)})component",
+			"**/components/**/*.*": "${filename}.${extname} ∙ ${dirname}(${dirname(1)})component",
+
+			// Others
+			"**/utils/index.*": "🧰 ∙ index",
+			"**/utils/*.*": "🧰 ∙ ${filename}.${extname}",
+			"**/hooks/*.{ts,tsx,js,jsx}": "🪝 ∙ ${filename}.${extname}"
+		},
+		"editor.fontSize": 15
+	}
+}
