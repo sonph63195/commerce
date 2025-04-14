@@ -56,18 +56,6 @@
 		"typescript.tsdk": "node_modules/typescript/lib",
 		"typescript.enablePromptUseWorkspaceTsdk": true,
 
-		// MARK: Other settings
-		"editor.lineHeight": 1.4,
-		"editor.fontLigatures": true,
-		"explorer.compactFolders": false,
-		"editor.defaultFormatter": "biomejs.biome",
-		"files.associations": {
-			"*.css": "tailwindcss"
-		},
-		"[typescriptreact]": {
-			"editor.defaultFormatter": "biomejs.biome"
-		},
-
 		// MARK: Custom labels name
 		"workbench.editor.customLabels.patterns": {
 			// App router
@@ -90,6 +78,28 @@
 			"**/utils/*.*": "🧰 ∙ ${filename}.${extname}",
 			"**/hooks/*.{ts,tsx,js,jsx}": "🪝 ∙ ${filename}.${extname}"
 		},
-		"editor.fontSize": 15
+
+		// MARK: Other settings
+		"editor.fontSize": 15,
+		"editor.lineHeight": 1.4,
+		"editor.fontLigatures": true,
+		"explorer.compactFolders": false,
+		"files.associations": {
+			"*.css": "tailwindcss"
+		},
+		"editor.defaultFormatter": "biomejs.biome",
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "biomejs.biome"
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"biomejs.biome",
+			"eamodio.gitlens",
+			"gruntfuggly.todo-tree",
+			"bradlc.vscode-tailwindcss",
+			"shubhamverma18.react-outline",
+			"aaron-bond.better-comments"
+		]
 	}
 }

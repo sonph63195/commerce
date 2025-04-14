@@ -9,7 +9,8 @@
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
-		"lineWidth": 100
+		"lineWidth": 100,
+		"indentWidth": 2
 	},
 	"organizeImports": { "enabled": true },
 	"linter": {
