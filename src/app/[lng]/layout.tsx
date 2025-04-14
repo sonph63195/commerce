@@ -45,7 +45,7 @@ export default function RootLayout({
 	return (
 		<Providers lang={lng}>
 			<html lang={lng} dir={dir(lng)} className={interSans.variable}>
-				<body className="antialiased">{children}</body>
+				<body>{children}</body>
 			</html>
 		</Providers>
 	);
