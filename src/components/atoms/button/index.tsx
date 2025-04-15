@@ -38,7 +38,7 @@ export const buttonVariants = cva(
 				buttonStyle: ["color", "gray"],
 				destructive: false,
 				class:
-					"bg-primary text-primary-foreground hover:bg-primary-hover focus:shadow-xs-focused-primary disabled:bg-primary-disabled",
+					"bg-primary text-primary-foreground border border-blue-800 hover:bg-primary-hover focus:shadow-xs-focused-primary disabled:border-transparent disabled:bg-primary-disabled shadow-xs-inset",
 			},
 			{
 				variant: "secondary",
@@ -122,7 +122,7 @@ export const buttonVariants = cva(
 				buttonStyle: ["color", "gray"],
 				variant: "primary",
 				class:
-					"bg-destructive hover:bg-red-700 text-destructive-foreground focus:shadow-xs-focused-error disabled:bg-red-50/50 disabled:text-red-300 disabled:shadow-none",
+					"bg-destructive hover:bg-red-700 text-destructive-foreground focus:shadow-xs-focused-error disabled:bg-red-50/50 disabled:text-red-300 disabled:shadow-none shadow-xs-inset border border-red-700 disabled:border-transparent",
 			},
 			{
 				destructive: true,
@@ -182,7 +182,7 @@ export default function Button({
 			)}
 			{...props}
 		>
-			{iconContent}
+			{typeof iconContent === "string" ? <span>{iconContent}</span> : iconContent}
 			{iconPosition !== true && children}
 		</button>
 	);

@@ -20,7 +20,7 @@ export default function DevButtonPage({ searchParams }: IDevButtonPageProps) {
 				<div className="flex flex-col gap-5">
 					<div className="flex gap-5 justify-center items-center">
 						<h3>Variant:</h3>
-						<ul className="flex gap-5">
+						<ul className="flex gap-5 divide-x-1 divide-divider">
 							<li>
 								<ButtonLink
 									variant="link"
@@ -81,7 +81,7 @@ export default function DevButtonPage({ searchParams }: IDevButtonPageProps) {
 					</div>
 					<div className="flex gap-5 justify-center items-center">
 						<h3>Style:</h3>
-						<ul className="flex gap-5">
+						<ul className="flex gap-5 divide-x-1 divide-divider">
 							<li>
 								<ButtonLink
 									variant="link"
@@ -174,8 +174,8 @@ export default function DevButtonPage({ searchParams }: IDevButtonPageProps) {
 							variant={variant}
 							buttonStyle={style}
 							size="xl"
-							iconPosition={"trailing"}
-							iconContent={<CircleIcon width={20} height={20} />}
+							iconPosition={"leading"}
+							iconContent={<PlusIcon width={20} height={20} />}
 						>
 							Click
 						</Button>
