@@ -8,6 +8,18 @@
 	--color-primary-shadow: var(--color-blue-100);
 	--color-primary-foreground: #ffffff;
 
+	--color-primary-50: var(--color-blue-50);
+	--color-primary-100: var(--color-blue-100);
+	--color-primary-200: var(--color-blue-200);
+	--color-primary-300: var(--color-blue-300);
+	--color-primary-400: var(--color-blue-400);
+	--color-primary-500: var(--color-blue-500);
+	--color-primary-600: var(--color-blue-600);
+	--color-primary-700: var(--color-blue-700);
+	--color-primary-800: var(--color-blue-800);
+	--color-primary-900: var(--color-blue-900);
+	--color-primary-950: var(--color-blue-950);
+
 	--color-secondary: #ffffff;
 	--color-secondary-hover: var(--color-gray-50);
 	--color-secondary-shadow: var(--color-gray-100);
@@ -39,7 +51,12 @@
 
 	/* Box shadow */
 	--shadow-xs: 0 1px 2px hsl(218deg 29% 5% / 5%);
-	--shadow-xs-focused-primary: 0 1px 2px hsl(218deg 29% 5% / 5%), 0 0 0 4px var(--color-primary-shadow);
+
+	--shadow-xs-focused-primary: var(--shadow-xs), 0 0 0 4px var(--color-primary-200);
+	--inset-shadow-button-primary: inset 0 1.5px 0 var(--color-primary-400), inset 0 0 0 1.5px var(--color-primary-500), inset 0 -3px 0 var(--color-primary-700);
+	--shadow-button-primary: var(--inset-shadow-button-primary), 0 4px 10px -5px var(--color-primary-700), 0 0 0 1.5px var(--color-primary-200);
+	--shadow-button-focused-primary: var(--shadow-button-primary), var(--shadow-xs-focused-primary);
+
 	--shadow-xs-focused-secondary: 0 1px 2px hsl(218deg 29% 5% / 5%), 0 0 0 4px var(--color-secondary-shadow);
 	--shadow-xs-focused-error: 0 1px 2px hsl(218deg 29% 5% / 5%), 0 0 0 4px var(--color-red-100);
 	--shadow-xs-inset: inset 0 0 0 1px hsl(0deg 0% 100% / 15%), 0 1px 2px hsl(218deg 29% 5% / 5%);

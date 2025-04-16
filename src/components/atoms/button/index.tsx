@@ -3,12 +3,13 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
-	"flex w-full items-center justify-center gap-2 tracking-wide rounded-lg shadow-xs cursor-pointer active:scale-95 transition delay-100 duration-200 ease-in-out focus:outline-none disabled:cursor-default disabled:active:scale-100",
+	"inline-flex flex-1 w-full items-center justify-center gap-2 tracking-wide rounded-lg cursor-pointer active:scale-95 transition delay-100 duration-200 ease-in-out focus:outline-none disabled:cursor-default disabled:active:scale-100",
 	{
 		variants: {
 			variant: {
-				primary: "",
-				secondary: "",
+				primary:
+					"bg-primary text-primary-foreground border border-transparent hover:bg-primary-hover disabled:border-transparent disabled:bg-primary-disabled shadow-button-primary focus:shadow-button-focused-primary active:shadow-xs-focused-primary disabled:shadow-none",
+				secondary: "shadow-xs",
 				tertiary: "",
 				link: "",
 			},
@@ -33,13 +34,6 @@ export const buttonVariants = cva(
 		},
 		compoundVariants: [
 			// MARK: Style variants
-			{
-				variant: "primary",
-				buttonStyle: ["color", "gray"],
-				destructive: false,
-				class:
-					"bg-primary text-primary-foreground border border-blue-800 hover:bg-primary-hover focus:shadow-xs-focused-primary disabled:border-transparent disabled:bg-primary-disabled shadow-xs-inset",
-			},
 			{
 				variant: "secondary",
 				buttonStyle: "color",
