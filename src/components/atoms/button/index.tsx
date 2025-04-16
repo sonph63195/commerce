@@ -158,6 +158,7 @@ interface ButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement>,
 		VariantProps<typeof buttonVariants> {
 	iconContent?: React.ReactNode;
+	ref?: React.Ref<HTMLButtonElement>;
 }
 
 export default function Button({

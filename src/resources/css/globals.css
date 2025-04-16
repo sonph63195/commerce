@@ -17,7 +17,7 @@
 	--color-accent: #f5a623;
 	--color-accent-foreground: #ffffff;
 
-	--color-background: #FFFFFF;
+	--color-background: var(--color-gray-200);
 	--color-foreground: var(--color-gray-700);
 	--color-success: #12b76a;
 	--color-success-foreground: #ffffff;
@@ -31,6 +31,11 @@
 	--color-card-foreground: var(--color-gray-700);
 	--color-border: var(--color-gray-300);
 	--color-divider: #e9eaeb;
+
+	--color-input: var(--color-white);
+	--color-input-foreground: var(--color-gray-900);
+	--color-input-placeholder: var(--color-gray-500);
+	--color-input-disabled: var(--color-gray-50);
 
 	/* Box shadow */
 	--shadow-xs: 0 1px 2px hsl(218deg 29% 5% / 5%);

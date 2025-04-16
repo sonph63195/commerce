@@ -46,6 +46,8 @@
     "biome": "^0.3.3",
     "chromatic": "^11.28.0",
     "playwright": "^1.51.1",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "storybook": "^8.6.12",
     "tailwindcss": "^4",
     "typescript": "^5",
