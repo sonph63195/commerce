@@ -7,9 +7,8 @@ export const buttonVariants = cva(
 	{
 		variants: {
 			variant: {
-				primary:
-					"bg-primary text-primary-foreground border border-transparent hover:bg-primary-hover disabled:border-transparent disabled:bg-primary-disabled shadow-button-primary focus:shadow-button-focused-primary active:shadow-xs-focused-primary disabled:shadow-none",
-				secondary: "shadow-xs",
+				primary: "",
+				secondary: "",
 				tertiary: "",
 				link: "",
 			},
@@ -35,19 +34,26 @@ export const buttonVariants = cva(
 		compoundVariants: [
 			// MARK: Style variants
 			{
+				variant: "primary",
+				// buttonStyle: "color",
+				destructive: false,
+				class:
+					"bg-primary text-primary-foreground border border-transparent hover:bg-primary-hover disabled:border-transparent disabled:bg-primary-disabled shadow-button-primary focus:shadow-button-focused-primary active:shadow-xs-focused-primary disabled:shadow-none",
+			},
+			{
 				variant: "secondary",
 				buttonStyle: "color",
 				destructive: false,
 				// TODO: Naming for color
 				class:
-					"bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50/50 text-blue-700 disabled:text-blue-300 focus:shadow-xs-focused-primary",
+					"bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50/50 text-blue-700 disabled:text-blue-300 focus:shadow-xs-focused-primary shadow-xs",
 			},
 			{
 				variant: "secondary",
 				buttonStyle: "gray",
 				destructive: false,
 				class:
-					"bg-secondary hover:bg-secondary-hover disabled:hover:bg-secondary text-secondary-foreground disabled:text-gray-300 border disabled:border-gray-200 focus:shadow-xs-focused-secondary",
+					"btn-secondary-gray hover:bg-secondary-hover disabled:hover:bg-secondary text-secondary-foreground disabled:text-gray-300 border disabled:border-gray-200 focus:shadow-xs-focused-secondary shadow-xs",
 			},
 			{
 				variant: "tertiary",
@@ -116,7 +122,7 @@ export const buttonVariants = cva(
 				buttonStyle: ["color", "gray"],
 				variant: "primary",
 				class:
-					"bg-destructive hover:bg-red-700 text-destructive-foreground focus:shadow-xs-focused-error disabled:bg-red-50/50 disabled:text-red-300 disabled:shadow-none shadow-xs-inset border border-red-700 disabled:border-transparent",
+					"bg-destructive hover:bg-red-700 text-destructive-foreground focus:shadow-xs-focused-error disabled:bg-red-50/50 disabled:text-red-300 disabled:shadow-none inset-shadow-xs border border-red-700 disabled:border-transparent",
 			},
 			{
 				destructive: true,

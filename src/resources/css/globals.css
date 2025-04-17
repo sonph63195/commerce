@@ -59,7 +59,7 @@
 
 	--shadow-xs-focused-secondary: 0 1px 2px hsl(218deg 29% 5% / 5%), 0 0 0 4px var(--color-secondary-shadow);
 	--shadow-xs-focused-error: 0 1px 2px hsl(218deg 29% 5% / 5%), 0 0 0 4px var(--color-red-100);
-	--shadow-xs-inset: inset 0 0 0 1px hsl(0deg 0% 100% / 15%), 0 1px 2px hsl(218deg 29% 5% / 5%);
+	--inset-shadow-xs: inset 0 0 0 1px hsl(0deg 0% 100% / 15%), 0 1px 2px hsl(218deg 29% 5% / 5%);
 }
 
 @layer base {
@@ -71,5 +71,9 @@
 @layer components {
 	body {
 		@apply antialiased bg-background text-foreground;
+	}
+
+	.btn-secondary-gray {
+		@apply bg-gradient-to-b from-white to-gray-100 shadow-xs text-shadow-2xs;
 	}
 }
