@@ -1,8 +1,10 @@
 "use client";
 
+import Button from "@/components/atoms/button";
 import Link from "@/components/atoms/link";
 import LoadingIndicator from "@/components/atoms/link/loading-indicator";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 import { useParams, usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 
@@ -16,6 +18,7 @@ const menuTabs = [
 export default function DevLayout({ children }: PropsWithChildren) {
 	const pathname = usePathname();
 	const params = useParams();
+	const { setTheme, theme } = useTheme();
 
 	const isActive = (path: string) => `/${params.lng}${path}` === pathname;
 
@@ -50,6 +53,39 @@ export default function DevLayout({ children }: PropsWithChildren) {
 				</nav>
 			</div>
 			{children}
+
+			<div className="flex gap-3">
+				<div>
+					<Button
+						size="sm"
+						buttonStyle="gray"
+						variant={theme === "light" ? "secondary" : "tertiary"}
+						onClick={() => setTheme("light")}
+					>
+						Light
+					</Button>
+				</div>
+				<div>
+					<Button
+						size="sm"
+						buttonStyle="gray"
+						variant={theme === "dark" ? "secondary" : "tertiary"}
+						onClick={() => setTheme("dark")}
+					>
+						Dark
+					</Button>
+				</div>
+				<div>
+					<Button
+						size="sm"
+						buttonStyle="gray"
+						variant={theme === "system" ? "secondary" : "tertiary"}
+						onClick={() => setTheme("system")}
+					>
+						System
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
 }

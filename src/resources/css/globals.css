@@ -29,7 +29,7 @@
 	--color-accent: #f5a623;
 	--color-accent-foreground: #ffffff;
 
-	--color-background: var(--color-gray-200);
+	--color-background: var(--color-gray-100);
 	--color-foreground: var(--color-gray-700);
 	--color-success: #12b76a;
 	--color-success-foreground: #ffffff;
@@ -74,6 +74,6 @@
 	}
 
 	.btn-secondary-gray {
-		@apply bg-gradient-to-b from-white to-gray-100 shadow-xs text-shadow-2xs;
+		@apply bg-gradient-to-b from-white to-gray-100 shadow-xs;
 	}
 }

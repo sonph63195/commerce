@@ -43,10 +43,12 @@ export default function RootLayout({
 	const lng = removeEmptyValue(_param_lng, fallbackLng);
 
 	return (
-		<Providers lang={lng}>
-			<html lang={lng} dir={dir(lng)} className={interSans.variable}>
-				<body>{children}</body>
-			</html>
-		</Providers>
+		<html lang={lng} dir={dir(lng)} className={interSans.variable} suppressHydrationWarning>
+			<body>
+				<Providers>
+					<div id="app">{children}</div>
+				</Providers>
+			</body>
+		</html>
 	);
 }
