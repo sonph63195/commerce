@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-	allowedDevOrigins: ["127.0.0.1:3000"],
-};
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig: NextConfig = withBundleAnalyzer({
+	/* config options here */
+});
 
 export default nextConfig;
