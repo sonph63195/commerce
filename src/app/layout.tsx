@@ -3,6 +3,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { PropsWithChildren } from "react";
+import { NextAuthProvider } from "@/components/auth/NextAuthProvider";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -21,12 +24,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
 	return (
-		<html lang="en" className="">
+		<html lang="en" className="" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}>
-				<div id="main-app" className="flex flex-col min-h-screen">
-					<main className="flex-1">{children}</main>
-					<footer>Footer</footer>
-				</div>
+				<ThemeProvider>
+					<NextAuthProvider>
+						<div id="main-app" className="flex flex-col min-h-screen">
+							{children}
+						</div>
+
+						<Toaster />
+					</NextAuthProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
