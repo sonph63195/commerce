@@ -1,12 +1,11 @@
-// biome-ignore lint/suspicious/noExplicitAny: This component receives 'field' from react-hook-form's Controller, which can have an 'any' type if the form's generic type is not fully specified.
 "use client";
 
 import * as React from "react";
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller, ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { Switch } from "../switch";
 
 interface FormSwitchProps extends React.ComponentProps<typeof Switch> {
-  name: string;
+  name: FieldPath<FieldValues>;
 }
 
 function FormSwitch({ name, ...props }: FormSwitchProps) {
@@ -15,7 +14,7 @@ function FormSwitch({ name, ...props }: FormSwitchProps) {
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ field }: { field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>> }) => (
         <Switch checked={field.value} onCheckedChange={field.onChange} {...props} />
       )}
     />
