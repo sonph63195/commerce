@@ -1,5 +1,6 @@
 import { Toaster } from "sonner";
 import { ThemeProvider } from "./theme-provider";
+import NextAuthProvider from "./next-auth-provider";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
 	return (
@@ -9,7 +10,9 @@ export default function Provider({ children }: { children: React.ReactNode }) {
 			enableSystem
 			disableTransitionOnChange
 		>
-			{children}
+			<NextAuthProvider>{children}</NextAuthProvider>
+
+			{/* Sonner Toast Notifications */}
 			<Toaster />
 		</ThemeProvider>
 	);

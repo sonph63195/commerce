@@ -18,7 +18,6 @@ Refer to the root `GEMINI.md` for shared **⚙️ Coding Conventions** and **�
 - Use reusable and composable components from `@/components/**`.
 - Extend base components via **composition**, not cloning or inheritance.
 - Use **utility-first Tailwind CSS classes** — avoid custom CSS unless necessary.
-- Use `VBox` (vertical layout) and `HBox` (horizontal layout) wrappers when aligning layout via Flexbox.
 - Ensure accessibility with appropriate `aria` attributes and semantic HTML.
 - Always use a dedicated typography component for displaying text.
 
@@ -26,11 +25,11 @@ Refer to the root `GEMINI.md` for shared **⚙️ Coding Conventions** and **�
 
 ## 🧾 Form-Specific Guidelines
 
-### ✅ Schema Location & Naming
+### ✅ Model Location & Naming
 
-- Define all form schemas in `@/models/{feature}.model.ts` — one file per feature.
-- Schema file must:
-  - Export a Zod schema (e.g., `userProfileSchema`)
+- Define all models using **Zod** in `@/models/{feature}.model.ts` — one file per feature.
+- Each model file must:
+  - Export a Zod schema (e.g., `userSchema`)
   - Export the inferred type via `z.infer`
 
 #### 📌 Example: `models/user.model.ts`
@@ -38,19 +37,19 @@ Refer to the root `GEMINI.md` for shared **⚙️ Coding Conventions** and **�
 ```ts
 import { z } from "zod";
 
-export const userProfileSchema = z.object({
+export const userSchema = z.object({
+  id: z.string(),
   name: z.string().min(2),
   email: z.string().email(),
 });
 
-export type UserProfileForm = z.infer<typeof userProfileSchema>;
+export type User = z.infer<typeof userSchema>;
 ```
 
 ## ✅ Form Implementation Standards
 
 - Use useForm() with zodResolver() for schema validation.
-- Use UI elements like Input, Label, Button, Textarea, Select — wrapped in local components (@/components/atoms/*).
-- Use Form, FormField, FormLabel, FormMessage, FormInput from @/components/atoms/form.
+- Use Form, FormField, FormLabel, FormControl, FormMessage, FormSubmit, FormInput, FormTextarea, FormCheckbox, FormSelect, FormRadioGroup, FormSwitch from @/components/ui/form.
 - Always provide:
   - Accessible labels (Label)
   - Error messages (FormMessage)
