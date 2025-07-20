@@ -20,6 +20,7 @@ Refer to the root `GEMINI.md` for shared **⚙️ Coding Conventions** and **�
 - Use **utility-first Tailwind CSS classes** — avoid custom CSS unless necessary.
 - Use `VBox` (vertical layout) and `HBox` (horizontal layout) wrappers when aligning layout via Flexbox.
 - Ensure accessibility with appropriate `aria` attributes and semantic HTML.
+- Always use a dedicated typography component for displaying text.
 
 ---
 

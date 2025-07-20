@@ -9,7 +9,6 @@
 - Use **Biome** for linting and formatting.
 
 ## 🎨 UI Guidelines
-- Follow **Atomic Design** principles (atoms, molecules, organisms, templates, pages).
 - Prefer **functional React components** with hooks.
 - Use **React Server Components** where appropriate.
 - Use **client components** only when needed (`"use client"`).
@@ -18,12 +17,6 @@
 ## 🧭 File Structure
 - Organize features using **modular folders**: `app/{feature}/page.tsx`, `components/{type}/{Component}.tsx`, etc.
 - Place **reusable UI** in `components/ui/`, and **feature-specific components** in `components/{feature}/`.
-- User atomic design structure:
-  - `components/atoms/` for basic elements (buttons, inputs).
-  - `components/molecules/` for combinations of atoms (form groups).
-  - `components/organisms/` for complex components (headers, footers).
-  - `components/templates/` for page layouts.
-  - `components/pages/` for full pages.
 
 ## ⚙️ Coding Conventions
 - Use `async/await` instead of `.then()`.
