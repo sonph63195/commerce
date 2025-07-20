@@ -16,6 +16,7 @@ Refer to `.github/copilot-instructions.md` for shared **⚙️ Coding Convention
 
 ---
 
+
 ## 🧩 Component Design Principles
 
 - Use reusable and composable components from `@/components/**`.
@@ -23,6 +24,7 @@ Refer to `.github/copilot-instructions.md` for shared **⚙️ Coding Convention
 - Use **utility-first Tailwind CSS classes** — avoid custom CSS unless necessary.
 - Use `VBox` (vertical layout) and `HBox` (horizontal layout) wrappers when aligning layout via Flexbox.
 - Ensure accessibility with appropriate `aria` attributes and semantic HTML.
+- **Always use the `Typography` component from `@/components/ui/typography` for rendering any text content (headings, paragraphs, lists, blockquotes, etc.) in UI components. Do not use raw HTML tags for text.**
 
 ---
 
