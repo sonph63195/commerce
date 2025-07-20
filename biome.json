@@ -21,7 +21,8 @@
 				"noUnusedVariables": "warn"
 			},
 			"style": {
-				"noDefaultExport": "off"
+				"noDefaultExport": "off",
+				"useImportType": "off"
 			}
 		}
 	},
