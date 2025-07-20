@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Form, FormControl, FormField, FormLabel, FormMessage, FormSubmit } from "../form";
-import { Input } from "../input";
+import { Form, FormControl, FormField, FormLabel, FormMessage, FormSubmit, FormInput } from "../form";
 import { Button } from "../button";
 
 const meta: Meta<typeof Form> = {
@@ -19,7 +18,7 @@ export const Default: Story = {
         <FormField name="email">
           <FormLabel>Email</FormLabel>
           <FormControl asChild>
-            <Input type="email" required />
+            <FormInput type="email" required />
           </FormControl>
           <FormMessage match="valueMissing">Please enter your email</FormMessage>
           <FormMessage match="typeMismatch">Please provide a valid email</FormMessage>
