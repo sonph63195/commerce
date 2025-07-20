@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as FormPrimitive from "@radix-ui/react-form";
-import { useForm, UseFormProps } from "react-hook-form";
+import { useForm, UseFormProps, FormProvider } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
 interface FormProps<TFormValues extends Record<string, any>>
@@ -18,9 +18,11 @@ function Form<TFormValues extends Record<string, any>>({
 }: FormProps<TFormValues>) {
   const methods = useForm<TFormValues>(props);
   return (
-    <FormPrimitive.Root onSubmit={methods.handleSubmit(onSubmit)} data-slot="form">
-      <form>{children}</form>
-    </FormPrimitive.Root>
+    <FormProvider {...methods}>
+      <FormPrimitive.Root onSubmit={methods.handleSubmit(onSubmit)} data-slot="form">
+        <form>{children}</form>
+      </FormPrimitive.Root>
+    </FormProvider>
   );
 }
 
