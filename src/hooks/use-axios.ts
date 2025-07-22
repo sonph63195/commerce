@@ -1,39 +1,91 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  UseQueryResult,
+  UseMutationResult,
+  QueryKey,
+  UseQueryOptions,
+  UseMutationOptions,
+} from "@tanstack/react-query";
+import { AxiosRequestConfig, AxiosError } from "axios";
 import { axios } from "@/lib/axios";
 
-interface UseAxiosOptions {
-	queryKey: string[];
-	enabled?: boolean;
-}
+// ====================================================================================
+// API Client
+// ====================================================================================
 
-export function useAxios<TData = unknown, TError = unknown>(
-	url: string,
-	config?: AxiosRequestConfig,
-	options?: UseAxiosOptions,
-) {
-	const queryClient = useQueryClient();
+const apiClient = {
+  get: <TData>(url: string, config?: AxiosRequestConfig) =>
+    axios.get<TData>(url, config).then((res) => res.data),
+  post: <TData, TVariables>(url: string, data?: TVariables, config?: AxiosRequestConfig) =>
+    axios.post<TData>(url, data, config).then((res) => res.data),
+  put: <TData, TVariables>(url: string, data?: TVariables, config?: AxiosRequestConfig) =>
+    axios.put<TData>(url, data, config).then((res) => res.data),
+  patch: <TData, TVariables>(url: string, data?: TVariables, config?: AxiosRequestConfig) =>
+    axios.patch<TData>(url, data, config).then((res) => res.data),
+  delete: <TData>(url: string, config?: AxiosRequestConfig) =>
+    axios.delete<TData>(url, config).then((res) => res.data),
+};
 
-	const fetcher = async (): Promise<TData> => {
-		const response = await axios.get<TData>(url, config);
-		return response.data;
-	};
 
-	const query = useQuery<TData, TError, TData, string[]>(
-		{ queryKey: options?.queryKey || [url], queryFn: fetcher, enabled: options?.enabled },
-	);
+// ====================================================================================
+// Query Hook
+// ====================================================================================
 
-	const mutate = useMutation<TData, TError, unknown>(
-		async (data) => {
-			const response = await axios.post<TData>(url, data, config);
-			return response.data;
-		},
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: options?.queryKey || [url] });
-			},
-		},
-	);
+type QueryOptions<TData> = UseQueryOptions<TData, AxiosError, TData, QueryKey>;
 
-	return { query, mutate };
-}
+export const useApiQuery = <TData>(
+  queryKey: QueryKey,
+  url: string,
+  config?: AxiosRequestConfig,
+  options?: Omit<QueryOptions<TData>, 'queryKey' | 'queryFn'>,
+): UseQueryResult<TData, AxiosError> => {
+  const queryFn = () => apiClient.get<TData>(url, config);
+  return useQuery<TData, AxiosError, TData, QueryKey>({
+    queryKey,
+    queryFn,
+    ...options,
+  });
+};
+
+
+// ====================================================================================
+// Mutation Hook
+// ====================================================================================
+
+type MutationOptions<TData, TVariables> = UseMutationOptions<TData, AxiosError, TVariables, unknown>;
+
+export const useApiMutation = <TData, TVariables>(
+  url: string,
+  method: 'post' | 'put' | 'patch' | 'delete' = 'post',
+  config?: AxiosRequestConfig,
+  options?: MutationOptions<TData, TVariables>,
+): UseMutationResult<TData, AxiosError, TVariables, unknown> => {
+  const mutationFn = (data?: TVariables) => {
+    switch (method) {
+      case 'post':
+        return apiClient.post<TData, TVariables>(url, data, config);
+      case 'put':
+        return apiClient.put<TData, TVariables>(url, data, config);
+      case 'patch':
+        return apiClient.patch<TData, TVariables>(url, data, config);
+      case 'delete':
+        return apiClient.delete<TData>(url, config);
+      default:
+        // This should not happen
+        throw new Error(`Invalid mutation method: ${method}`);
+    }
+  };
+
+  return useMutation<TData, AxiosError, TVariables, unknown>({
+    mutationFn,
+    ...options,
+    onSuccess: (data, variables, context) => {
+      // Invalidate queries or perform other actions on success
+      if (options?.onSuccess) {
+        options.onSuccess(data, variables, context);
+      }
+    },
+  });
+};

@@ -70,6 +70,7 @@ For every project, you will create and maintain a `GEMINI.md` file in the projec
 *   File names should be in snake-case (e.g., `my-file-name.ts`).
 *   All UI components should be located in `src/components/ui/` and should not directly use native HTML elements like `<button>` or `<input>`. Instead, they should use wrapper components from `src/components/ui/` and follow the specific instructions in `.gemini/components.md`.
 *   For UI components, use short imports from `src/components/index.ts` when available.
+*   Always use constants when possible.
 
 ## 4. Learning Protocol
 
