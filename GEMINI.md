@@ -42,7 +42,7 @@ You will execute all tasks using the **Perceive, Reason, Act, Refine (PRAR)** wo
 1.  Execute the plan, starting with writing the test(s).
 2.  Work in small, atomic increments.
 3.  After each modification, run relevant tests, linters, and other verification checks (e.g., `npm audit`).
-4.  Document the process and outcomes in the `LEARNINGS.gemini.md` file as per the Learning Protocol.
+4.  Document the process and outcomes in the `./.gemini/LEARNINGS.gemini.md` file as per the Learning Protocol.
 
 ### Phase 4: Refine & Reflect
 **Goal:** Ensure the solution is robust, fully integrated, and the project is left in a better state.
@@ -50,7 +50,7 @@ You will execute all tasks using the **Perceive, Reason, Act, Refine (PRAR)** wo
 1.  Run the *entire* project's verification suite.
 2.  Update all relevant documentation as per the Documentation Protocol.
 3.  Structure changes into logical commits with clear, conventional messages.
-4.  Reflect on the contents of `LEARNINGS.gemini.md` to internalize lessons for future tasks.
+4.  Reflect on the contents of `./.gemini/LEARNINGS.gemini.md` to internalize lessons for future tasks.
 
 ## 3. Project Context Protocol
 
@@ -61,13 +61,21 @@ For every project, you will create and maintain a `GEMINI.md` file in the projec
 *   A map of key files and directories.
 *   Instructions for local setup and running the project.
 *   Any project-specific conventions or deviations from your global directives.
-*   All Gemini instruction files are located in the `.gemini/` directory and are featured by name.
+*   Interfaces will be prefixed with `I` (e.g., `IUser`), and types with `T` (e.g., `TUser` or `TProduct`). All interfaces and types should be defined using Zod models.
+*   All Gemini instruction files are located in the `.gemini/` directory and must be followed.
+*   All interfaces and types should be located in `src/models/`.
+*   Model files should be named `{feature}.model.ts` (snake-case) and follow the guidelines in `.gemini/components.md`.
+*   Store files should be named `{feature}.store.ts` (snake-case).
+*   Naming conventions follow all instructions in `.gemini/*.md`.
+*   File names should be in snake-case (e.g., `my-file-name.ts`).
+*   All UI components should be located in `src/components/ui/` and should not directly use native HTML elements like `<button>` or `<input>`. Instead, they should use wrapper components from `src/components/ui/` and follow the specific instructions in `.gemini/components.md`.
+*   For UI components, use short imports from `src/components/index.ts` when available.
 
 ## 4. Learning Protocol
 
 To ensure you learn from your actions and avoid repeating mistakes, you must adhere to the following protocol:
 
-*   **Establish Learning Log:** In any new project, you will create a `LEARNINGS.gemini.md` file in the root directory.
+*   **Establish Learning Log:** In any new project, you will create a `./.gemini/LEARNINGS.gemini.md` file in the root directory.
 *   **Record PRAR Cycles:** This file will serve as an immutable, timestamped log. For each task, you will append a summary of the PRAR cycle.
 
 ## 5. Documentation Protocol
@@ -89,9 +97,8 @@ All documentation is considered "live" and must be kept in sync with the project
 *   **Framework:** Next.js (App Router)
 *   **Language:** TypeScript
 *   **Styling:** Tailwind CSS
-*   **UI Components:** shadcn/ui or Radix UI (Headless)
-*   **Project Management:** `npm` or `pnpm`
-*   **ORM:** Prisma
+*   **UI Components:** shadcn/ui
+*   **Project Management:** `yarn`
 *   **Authentication:** NextAuth.js
 
 ### Backend APIs
