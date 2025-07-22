@@ -1,0 +1,135 @@
+name: shopping_app_gemini
+description: >
+  PDP file for Gemini Code Assistant to generate a shopping app's mock API endpoints.
+  The app uses Next.js 15+, TypeScript, and Tailwind CSS 4. Cart is managed on both frontend store and backend API for synchronization across sessions.
+
+persona:
+  role: AI Prompting Engineer
+  expertise: Fullstack development with RESTful mock APIs, Next.js App Router, Tailwind CSS, and state synchronization.
+
+frontend_stack:
+  - Next.js 15+
+  - TypeScript
+  - Tailwind CSS v4
+  - Zustand (or equivalent) for client-side store
+  - App Router with RSC support
+
+capabilities:
+  - Generate RESTful mock API endpoints with TypeScript types and JSON response.
+  - Enable search, category filtering, cart persistence and checkout logic.
+  - Include sample frontend store logic (e.g., Zustand).
+  - Provide example mock handlers using Next.js `/app/api/` structure.
+
+inputs:
+  context: >
+    You're building a shopping application. Features:
+      1. View homepage with all products.
+      2. Filter product list by category.
+      3. View product detail.
+      4. Search and filter by price.
+      5. Add/remove product from cart (stored in both frontend store and backend).
+      6. View cart.
+      7. Checkout using cart data (server confirms and returns order summary).
+  
+    Frontend will use Zustand for store.
+    Backend API will mirror cart updates to ensure state is preserved across sessions/devices.
+
+  constraints:
+    - Use RESTful API endpoints with standard verbs (GET, POST, DELETE, etc.).
+    - Return JSON responses.
+    - Include sample TypeScript interfaces.
+    - Store cart both locally (store) and remotely (API).
+
+expected_outputs:
+  - RESTful mock API endpoints (including cart management).
+  - TypeScript interfaces for each endpoint.
+  - Cart store example (Zustand) with sync actions to backend.
+  - Example `/app/api/*/route.ts` mock handlers.
+  - Example usage of API in client components (optional).
+
+examples:
+
+  - endpoint: GET /api/products
+    description: Fetch paginated product list with optional search and category filters.
+    query_params: [page, limit, category, search, price_min, price_max]
+    response:
+      {
+        "products": [
+          { "id": "p001", "name": "T-shirt", "price": 20, "category": "clothing" }
+        ],
+        "pagination": { "page": 1, "limit": 10, "total": 100 }
+      }
+
+  - endpoint: GET /api/products/:id
+    description: Get product detail by ID.
+    response:
+      {
+        "id": "p001",
+        "name": "T-shirt",
+        "description": "100% cotton, sizes S to XL",
+        "price": 20,
+        "category": "clothing",
+        "images": ["/images/tshirt.jpg"],
+        "stock": 25
+      }
+
+  - endpoint: GET /api/categories
+    response:
+      {
+        "categories": ["clothing", "shoes", "accessories"]
+      }
+
+  - endpoint: GET /api/cart
+    description: Get user's cart (synced from backend).
+    response:
+      {
+        "items": [
+          { "productId": "p001", "name": "T-shirt", "price": 20, "quantity": 2 }
+        ],
+        "total": 40
+      }
+
+  - endpoint: POST /api/cart
+    description: Add item to cart or update quantity.
+    request:
+      {
+        "productId": "p001",
+        "quantity": 2
+      }
+    response:
+      {
+        "message": "Product added to cart",
+        "cart": [
+          { "productId": "p001", "quantity": 2 }
+        ]
+      }
+
+  - endpoint: DELETE /api/cart/:productId
+    description: Remove item from cart.
+    response:
+      {
+        "message": "Item removed"
+      }
+
+  - endpoint: POST /api/checkout
+    description: Process order from cart.
+    request:
+      {
+        "userId": "u001",
+        "cart": [
+          { "productId": "p001", "quantity": 2 }
+        ],
+        "paymentMethod": "credit_card",
+        "shippingAddress": "123 ABC, District 1"
+      }
+    response:
+      {
+        "orderId": "o123",
+        "message": "Checkout successful",
+        "total": 40
+      }
+
+note: >
+  This PDP assumes the frontend cart store (e.g. Zustand) is synchronized with backend via fetch/axios.
+  The mock API responses should be stateless JSON files or in-memory objects during development.
+  

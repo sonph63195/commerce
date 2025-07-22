@@ -11,4 +11,4 @@ export const userSchema = z.object({
   // Add more fields as needed
 });
 
-export type User = z.infer<typeof userSchema>;
+export type TUser = z.infer<typeof userSchema>;
