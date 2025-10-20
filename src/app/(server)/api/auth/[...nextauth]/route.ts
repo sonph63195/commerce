@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { userSchema, User } from "@/models/user-model";
 
 const handler = NextAuth({
 	providers: [
@@ -13,6 +12,7 @@ const handler = NextAuth({
 			async authorize(credentials, _req) {
 				// In a real application, you would fetch user from a database
 				// and validate credentials here.
+				// const mockUser: User = {
 				const mockUser: User = {
 					id: "1",
 					username: "user",

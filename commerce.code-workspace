@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		// MARK: Better defaults
+		// MARK: Editor Defaults
 		"editor.copyWithSyntaxHighlighting": false,
 		"editor.lightbulb.enabled": "off",
 		"editor.formatOnSave": true,
@@ -15,12 +15,16 @@
 		"editor.wordWrap": "on",
 		"editor.wrappingStrategy": "advanced",
 		"editor.tabSize": 2,
-		"diffEditor.ignoreTrimWhitespace": false,
+		"editor.fontSize": 15,
+		"editor.lineHeight": 1.4,
+		"editor.fontLigatures": true,
 		"files.insertFinalNewline": true,
+		"files.trimTrailingWhitespace": true,
 		"explorer.confirmDelete": false,
+		"explorer.compactFolders": false,
 		"workbench.sideBar.location": "left",
 		"git.enableCommitSigning": true,
-		// MARK: Reduced noise
+		// MARK: Noise Reduction
 		"editor.hover.enabled": true,
 		"workbench.tips.enabled": false,
 		"git.decorations.enabled": false,
@@ -33,7 +37,7 @@
 		"editor.gotoLocation.multipleDeclarations": "goto",
 		"editor.gotoLocation.multipleImplementations": "goto",
 		"editor.gotoLocation.multipleTypeDefinitions": "goto",
-		// MARK: Improved search
+		// MARK: Search Settings
 		"search.useIgnoreFiles": false,
 		"search.exclude": {
 			"**/node_modules": true,
@@ -46,12 +50,13 @@
 		// MARK: Suggestions
 		"editor.suggestFontSize": 12,
 		"editor.suggestLineHeight": 25,
-		// MARK: Terminal
+		// MARK: Terminal Settings
 		"terminal.integrated.lineHeight": 1.3,
 		"terminal.integrated.fontSize": 13,
+		// MARK: TypeScript Settings
 		"typescript.tsdk": "node_modules/typescript/lib",
 		"typescript.enablePromptUseWorkspaceTsdk": true,
-		// MARK: Custom labels name
+		// MARK: Custom Labels
 		"workbench.editor.customLabels.patterns": {
 			// App router
 			"**/app/*.tsx": "${filename}.${extname} (root)",
@@ -71,14 +76,7 @@
 			"**/utils/*.*": "🧰 ∙ ${filename}.${extname}",
 			"**/hooks/*.{ts,tsx,js,jsx}": "🪝 ∙ ${filename}.${extname}"
 		},
-		// MARK: Other settings
-		"editor.fontSize": 15,
-		"editor.lineHeight": 1.4,
-		"editor.fontLigatures": true,
-		"explorer.compactFolders": false,
-		"files.associations": {
-			"*.css": "tailwindcss"
-		},
+		// MARK: Formatting
 		"editor.defaultFormatter": "biomejs.biome",
 		"[typescriptreact]": {
 			"editor.defaultFormatter": "biomejs.biome"
@@ -86,6 +84,7 @@
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
+		// MARK: CodeLens
 		"editor.codeLens": true,
 		"diffEditor.codeLens": true,
 		"javascript.referencesCodeLens.enabled": true,
@@ -94,6 +93,11 @@
 		"typescript.implementationsCodeLens.showOnInterfaceMethods": true,
 		"typescript.referencesCodeLens.enabled": true,
 		"typescript.referencesCodeLens.showOnAllFunctions": true,
+		// MARK: Auto Lock Groups
+		"workbench.editor.autoLockGroups": {
+			"mainThreadWebview-browserPreview": false,
+			"workbench.editorinputs.searchEditorInput": true
+		}
 	},
 	"extensions": {
 		"recommendations": [
