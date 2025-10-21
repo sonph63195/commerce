@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
-    "@next/bundle-analyzer": "^15.1.8",
+    "@next/bundle-analyzer": "15.5.6",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
@@ -51,12 +51,12 @@
     "input-otp": "^1.4.2",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.525.0",
-    "next": "15.4.2",
+    "next": "15.5.6",
     "next-auth": "^4.24.11",
     "next-themes": "^0.4.6",
-    "react": "^19.1.0",
+    "react": "19.2.0",
     "react-day-picker": "^9.8.0",
-    "react-dom": "^19.1.0",
+    "react-dom": "19.2.0",
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^3.0.3",
     "sonner": "^2.0.6",
@@ -72,8 +72,8 @@
     "@storybook/nextjs": "^9.0.17",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/node": "^22.15.21",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "autoprefixer": "^10.4.21",
     "biome": "^0.3.3",
     "postcss": "^8.5.3",
@@ -84,5 +84,9 @@
   },
   "engines": {
     "yarn": "^1.22.19"
+  },
+  "resolutions": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
   }
 }
