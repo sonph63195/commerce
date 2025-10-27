@@ -1,6 +1,17 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+// Local user type used for the mock authorize flow
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+};
+
 const handler = NextAuth({
 	providers: [
 		CredentialsProvider({
