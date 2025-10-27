@@ -31,7 +31,7 @@ export const Destructive: Story = {
         <AlertTitle>Error!</AlertTitle>
         <AlertDescription>
           Your action could not be completed.
-        </AlertationDescription>
+        </AlertDescription>
       </>
     ),
   },
