@@ -1,16 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-// Local user type used for the mock authorize flow
-type User = {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-};
+import type { TUser } from "@/models/user";
 
 const handler = NextAuth({
 	providers: [
@@ -23,8 +13,7 @@ const handler = NextAuth({
 			async authorize(credentials, _req) {
 				// In a real application, you would fetch user from a database
 				// and validate credentials here.
-				// const mockUser: User = {
-				const mockUser: User = {
+				const mockUser: TUser = {
 					id: "1",
 					username: "user",
 					email: "user@example.com",
@@ -59,7 +48,7 @@ const handler = NextAuth({
 		async session({ session, token }) {
 			if (token.user) {
 				// Expose all user data from the token to the session
-				session.user = token.user as User;
+				session.user = token.user as TUser;
 			}
 			return session;
 		},
