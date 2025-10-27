@@ -61,6 +61,24 @@ To clarify integration with CI/CD pipelines, note that these commands should ali
 
 ## 4) TypeScript Rules, Typing Philosophy & Naming
 
+### Naming Rules
+
+* **React Components:** Use kebab-case for file names (e.g., `product-card.tsx`, `user-profile.tsx`) but PascalCase for component declarations inside the file (e.g., `export function ProductCard()`).
+* **Hooks:** Follow `useXyz.ts` convention (e.g., `use-auth.ts`).
+* **Stores:** Each Zustand slice uses `domain.slice.ts` naming.
+* **Schemas and Models:** File names are in kebab-case (e.g., `user.schema.ts`, `cart.types.ts`).
+* **Tests:** Match the target file name (e.g., `product-card.test.tsx`).
+
+---
+
+### Naming Rules
+
+* **React Components:** File and folder names use **kebab-case** (e.g., `product-card.tsx`, `checkout-form.tsx`). The component function name itself remains **PascalCase** (`ProductCard`, `CheckoutForm`).
+* **Hooks:** Named with `use` prefix and follow camelCase (`useCart`, `useUserPreferences`).
+* **Zustand Stores:** Folders or files named after domain (`cart`, `user`), store files as `domain.slice.ts`.
+* **Model Domains:** Folders are lowercase with hyphens if needed (`user-profile`, `cart-item`).
+* **Utilities/Libs:** Use kebab-case filenames for helpers (`format-currency.ts`, `fetch-wrapper.ts`).
+
 ---
 
 ### Barrel Exports
