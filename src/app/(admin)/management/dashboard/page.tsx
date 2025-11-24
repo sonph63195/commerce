@@ -13,38 +13,38 @@ export default function AdminDashboardPage() {
             className="mr-2 data-[orientation=vertical]:h-4"
           />
           <Breadcrumb>
-              <BreadcrumbList>
-                {/* <BreadcrumbItem className="hidden md:block">
+            <BreadcrumbList>
+              {/* <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
                     Building Your Application
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" /> */}
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Dashboard</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
       </header>
 
       <Empty className="from-muted/50 to-background h-full">
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <ConstructionIcon />
-        </EmptyMedia>
-        <EmptyTitle>Work in progress</EmptyTitle>
-        <EmptyDescription>
-          The page is in development.
-        </EmptyDescription>
-      </EmptyHeader>
-      <EmptyContent>
-        <Button variant="outline" size="sm">
-          <RefreshCcwIcon />
-          Refresh
-        </Button>
-      </EmptyContent>
-    </Empty>
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <ConstructionIcon />
+          </EmptyMedia>
+          <EmptyTitle>Work in progress</EmptyTitle>
+          <EmptyDescription>
+            The page is in development.
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent>
+          <Button variant="outline" size="sm">
+            <RefreshCcwIcon />
+            Refresh
+          </Button>
+        </EmptyContent>
+      </Empty>
     </>
   );
 }

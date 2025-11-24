@@ -9,20 +9,14 @@ title
 thumbnail
 created_at
 modified_at
-status
-published_at
 metadata {
-  name
   description
-  image
-  category_type
-  parent_category {
+  parent {
     id
     slug
     title
   }
 }
-type
 }`;
 
 export async function GET(request: Request): Promise<Response> {
