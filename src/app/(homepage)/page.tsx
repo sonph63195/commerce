@@ -1,8 +1,12 @@
-import { Footer } from "@/components/layouts";
+import { Footer, Navbar } from "@/components/layouts";
 
 export default async function HomePage() {
-	return <>
-
-		<Footer />
-	</>;
+  return (
+    <>
+      <header></header>
+      <main className="h-dvh"></main>
+      <Navbar />
+      <Footer />
+    </>
+  );
 }
