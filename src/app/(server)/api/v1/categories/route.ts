@@ -1,4 +1,4 @@
-import { COSMIC } from "@/constants/env";
+import { formatCosmicErrorMessage, logCosmicError } from "@/infra/cosmic/error";
 import { cosmic } from "@/lib/cosmic";
 import { z } from "zod";
 
@@ -63,8 +63,9 @@ export async function GET(request: Request): Promise<Response> {
         { status: 400 }
       );
     }
+    logCosmicError(err, "Failed to fetch categories");
     return Response.json(
-      { error: ((err as any).message || "Failed to fetch categories").replaceAll(COSMIC.BUCKET_SLUG, 'db') },
+      { error: formatCosmicErrorMessage(err, "Failed to fetch categories") },
       { status: (err as any).status || 500 }
     );
   }

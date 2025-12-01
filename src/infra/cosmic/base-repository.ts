@@ -1,21 +1,37 @@
 import { cosmic } from "@/lib/cosmic";
 import { PaginatedResult } from "@/types/pagination";
 import { CosmicObjectResponse, CosmicObjectsResponse, ListParams } from "./types";
-import { COSMIC } from "@/constants/env";
+import { logCosmicError } from "./error";
 
 type Mapper<TDto, TDomain> = (dto: TDto) => TDomain;
-
 
 export class CosmicBaseRepository<TDto, TDomain> {
   protected readonly objectType: string;
   protected readonly mapDtoToDomain: Mapper<TDto, TDomain>;
   protected readonly props: string | Array<string>;
 
-
   constructor(objectType: string, mapDtoToDomain: Mapper<TDto, TDomain>, props?: string | Array<string>) {
     this.objectType = objectType;
     this.mapDtoToDomain = mapDtoToDomain;
     this.props = props ?? '';
+  }
+
+  protected getDefaultErrorMessage() {
+    return `Failed to fetch ${this.objectType}`;
+  }
+
+  protected async executeWithHandling<TResult>(
+    operation: () => Promise<TResult>,
+    fallback: () => TResult,
+    fallbackMessage?: string
+  ): Promise<TResult> {
+    try {
+      return await operation();
+    } catch (err) {
+      logCosmicError(err, fallbackMessage ?? this.getDefaultErrorMessage());
+
+      return fallback();
+    }
   }
 
   protected buildQuery(params: ListParams) {
@@ -32,40 +48,37 @@ export class CosmicBaseRepository<TDto, TDomain> {
   }
 
   async list(params?: ListParams): Promise<PaginatedResult<TDomain>> {
-    try {
-      const response = await this.buildQuery(params ?? {}).depth(1);
-    const data = response as CosmicObjectsResponse<TDto>;
+    return this.executeWithHandling(
+      async () => {
+        const response = await this.buildQuery(params ?? {}).depth(1);
+        const data = response as CosmicObjectsResponse<TDto>;
 
-    return {
-      data: data.objects.map(this.mapDtoToDomain),
-      total: data.total,
-      limit: data.limit,
-      skip: data.skip,
-    }
-    } catch (err) {
-      // TODO: create logger
-      console.log(((err as any).message || "Failed to fetch categories").replaceAll(COSMIC.BUCKET_SLUG, 'db'));
-
-      return {
+        return {
+          data: data.objects.map(this.mapDtoToDomain),
+          total: data.total,
+          limit: data.limit,
+          skip: data.skip,
+        }
+      },
+      () => ({
         data: [],
         total: 0,
         limit: 0,
         skip: 0,
-      }
-    }
+      })
+    );
   }
 
   async getBySlug(slug: string) {
-    try {
-      const query = cosmic.objects
-        .findOne({ type: this.objectType, slug }).depth(1);
-      const response = (await query) as CosmicObjectResponse<TDto>;
+    return this.executeWithHandling(
+      async () => {
+        const query = cosmic.objects
+          .findOne({ type: this.objectType, slug }).depth(1);
+        const response = (await query) as CosmicObjectResponse<TDto>;
 
-      return response.object ? [response.object].map(this.mapDtoToDomain)[0] : null;
-    } catch (err) {
-      // TODO: create logger
-      console.log(((err as any).message || "Failed to fetch categories").replaceAll(COSMIC.BUCKET_SLUG, 'db'));
-      return null;
-    }
+        return response.object ? this.mapDtoToDomain(response.object) : null;
+      },
+      () => null
+    );
   }
 }
