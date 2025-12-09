@@ -1,11 +1,11 @@
 import { Button, buttonVariants, Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components";
-import { getCategories } from "@/infra/cosmic/category/category.repo";
+import { categoryRepository } from "@/infra/cosmic/category/category.repo";
 import { cn } from "@/lib/utils";
 import { RefreshCcwIcon, TagIcon } from "lucide-react";
 import Link from "next/link";
 
-export default async function CategoriesPage() {
-  const { data: categories, total } = await getCategories({ limit: 10, skip: 0 });
+export default async function CategoryPage() {
+  const { data: categories, total } = await categoryRepository.getCategories({ limit: 10, skip: 0 });
 
   if (categories.length === 0) return (
     <Empty className="from-muted/50 to-background h-full">

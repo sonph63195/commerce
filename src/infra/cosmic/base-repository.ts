@@ -34,7 +34,7 @@ export class CosmicBaseRepository<TDto, TDomain> {
     }
   }
 
-  protected buildQuery(params: ListParams) {
+  private buildQuery(params: ListParams) {
     let query = cosmic.objects
       .find({ ...params.find ?? {}, type: this.objectType })
       .props(params.props ? '' : this.props ?? '')

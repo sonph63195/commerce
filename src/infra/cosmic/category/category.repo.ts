@@ -4,6 +4,7 @@ import { CosmicBaseRepository } from "../base-repository";
 import { CategoryDto } from "./category-dto";
 import { ListParams } from "../types";
 import { productListingRepository } from "../product/product-listing.repo";
+import { PaginatedResult } from "@/types/pagination";
 
 const categoryInfo = `{
 id
@@ -45,7 +46,7 @@ class CategoryRepository extends CosmicBaseRepository<CategoryDto, Category> {
       }
     });
 
-    const {data: products} = await productListingRepository.getProductListingsByCategoryId(category.id);
+    const { data: products } = await productListingRepository.getProductListingsByCategoryId(category.id);
 
     return {
       ...category,
@@ -53,18 +54,25 @@ class CategoryRepository extends CosmicBaseRepository<CategoryDto, Category> {
       products: products ?? []
     }
   }
+
+  async searchCategoriesByKeyword(keyword: string, limit?: number, skip?: number): Promise<PaginatedResult<Category>> {
+    const q = keyword.trim();
+    if (!q) return { data: [], total: 0 }
+
+    const data = await this.list({
+      limit: limit ?? 10,
+      skip: skip ?? 0,
+      find: {
+        $or: [
+          { title: { $regex: q, $options: 'i' } },
+          { slug: { $regex: q, $options: 'i' } },
+          { 'metadata.description': { $regex: q, $options: 'i' } },
+        ]
+      }
+    });
+
+    return data;
+  }
 }
 
 export const categoryRepository = new CategoryRepository();
-
-export async function getCategories(params?: ListParams) {
-  return categoryRepository.getCategories(params);
-}
-
-export async function getCategoryBySlug(slug: string) {
-  return categoryRepository.getBySlug(slug);
-}
-
-export async function getDetailBySlug(parentId: string, params?: ListParams) {
-  return categoryRepository.getDetailBySlug(parentId, params);
-}

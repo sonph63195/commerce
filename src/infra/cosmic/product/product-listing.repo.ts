@@ -39,6 +39,25 @@ class ProductListingRepository extends CosmicBaseRepository<ProductDto, ProductL
       }
     });
   }
+
+  async searchProductsByKeyword(keyword: string, limit?: number, skip?: number) {
+    const q = keyword.trim();
+    if (!q) return { data: [], total: 0 }
+
+    const data = await this.list({
+      limit: limit ?? 10,
+      skip: skip ?? 0,
+      find: {
+        $or: [
+          { title: { $regex: q, $options: 'i' } },
+          { slug: { $regex: q, $options: 'i' } },
+          { 'metadata.short_description': { $regex: q, $options: 'i' } },
+        ]
+      }
+    });
+
+    return data;
+  }
 }
 
 export const productListingRepository = new ProductListingRepository();
