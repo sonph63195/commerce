@@ -10,8 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Input } from "../ui/input";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Empty,
   EmptyDescription,
@@ -19,20 +18,12 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "../ui/empty";
-import { BoxSelectIcon, ChevronRightIcon } from "lucide-react";
+import { BoxSelectIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemMedia,
-  ItemTitle,
-} from "../ui/item";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { SearchInput } from "./search-input";
+import { SearchCategoryList } from "./search-category-list";
+import { SearchProductList } from "./search-product-list";
 
 interface IAutocompleteResult {
   categories: Category[];
@@ -83,9 +74,8 @@ export function SearchAutocompleteInput() {
     };
   }, [query]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const q = query.trim();
+  const handleSubmit = (value: string) => {
+    const q = value.trim();
     if (!q) return;
     setOpen(false);
     router.push(`/search?q=${encodeURIComponent(q)}`);
@@ -103,27 +93,19 @@ export function SearchAutocompleteInput() {
             <DialogDescription></DialogDescription>
 
             <div className="flex flex-col gap-4">
-              <form onSubmit={handleSubmit}>
-                <label className="sr-only" htmlFor="searchInput">
-                  Search
-                </label>
-                <Input
-                  id="searchInput"
-                  type="search"
-                  placeholder="Tìm sản phẩm, danh mục..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onFocus={() => {
-                    if (
-                      query.trim() &&
-                      (results.categories.length > 0 ||
-                        results.products.length > 0)
-                    ) {
-                      setOpen(true);
-                    }
-                  }}
-                />
-              </form>
+              <SearchInput
+                value={query}
+                onChange={setQuery}
+                onSubmit={handleSubmit}
+                onFocus={() => {
+                  if (
+                    query.trim() &&
+                    (results.categories.length > 0 || results.products.length > 0)
+                  ) {
+                    setOpen(true);
+                  }
+                }}
+              />
 
               {loading && <div>Loading...</div>}
 
@@ -146,73 +128,23 @@ export function SearchAutocompleteInput() {
               {open && (
                 <>
                   {results.categories.length > 0 && (
-                    <ItemGroup>
+                    <div className="space-y-2">
                       <h3>Categories</h3>
-                      {results.categories.map((category) => (
-                        <Fragment key={category.id}>
-                          <Item asChild>
-                            <Link href="#">
-                              <ItemMedia variant="image">
-                                <img
-                                  src={`${category.thumbnailUrl}`}
-                                  alt={category.title}
-                                  width={32}
-                                  height={32}
-                                  className="object-cover"
-                                />
-                              </ItemMedia>
-                              <ItemContent>
-                                <ItemTitle className="line-clamp-1">
-                                  {category.title}
-                                </ItemTitle>
-                                <ItemDescription className="line-clamp-2">
-                                  {category.description}
-                                </ItemDescription>
-                              </ItemContent>
-
-                              <ItemActions>
-                                <ChevronRightIcon className="size-4" />
-                              </ItemActions>
-                            </Link>
-                          </Item>
-                        </Fragment>
-                      ))}
-                    </ItemGroup>
+                      <SearchCategoryList
+                        categories={results.categories}
+                        getHref={(category) => `/categories/${category.slug}`}
+                      />
+                    </div>
                   )}
 
                   {results.products.length > 0 && (
-                    <ItemGroup>
+                    <div className="space-y-2">
                       <h3>Products</h3>
-                      {results.products.map((product) => (
-                        <Fragment key={product.id}>
-                          <Item asChild>
-                            <Link href="#">
-                              <ItemMedia variant="image">
-                                <img
-                                  src={`${product.thumbnailUrl}`}
-                                  alt={product.title}
-                                  width={32}
-                                  height={32}
-                                  className="object-cover"
-                                />
-                              </ItemMedia>
-                              <ItemContent>
-                                <ItemTitle className="line-clamp-1">
-                                  {product.title}
-                                </ItemTitle>
-                                <ItemDescription className="line-clamp-2">
-                                  {product.shortDescription}
-                                </ItemDescription>
-                              </ItemContent>
-
-                              <ItemActions>
-                                <ChevronRightIcon className="size-4" />
-                              </ItemActions>
-                            </Link>
-                          </Item>
-                        </Fragment>
-                      ))}
-                    </ItemGroup>
+                      <SearchProductList
+                        products={results.products}
+                        getHref={(product) => `/products/${product.slug}`}
+                      />
+                    </div>
                   )}
                 </>
               )}

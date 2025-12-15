@@ -97,6 +97,9 @@
 		"workbench.editor.autoLockGroups": {
 			"mainThreadWebview-browserPreview": false,
 			"workbench.editorinputs.searchEditorInput": true
+		},
+		"[markdown]": {
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
 		}
 	},
 	"extensions": {

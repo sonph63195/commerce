@@ -1,5 +1,19 @@
 # Repository Guidelines
 
+## Project Overview
+- Next.js App Router (Next 16, React 19) with grouping: `src/app/(storefront)`, `src/app/(admin)`, `src/app/(server)` for API routes; `src/app/layout.tsx` attaches Geist fonts, Theme/NextAuth/React Query providers.
+- Data layer integrates Cosmic CMS via `src/lib/cosmic` + `src/infra/cosmic` repositories/mappers; domain models live in `src/models/catalog`.
+- UI uses shadcn-derived primitives in `src/components/ui`, aggregated exports in `src/components/index.ts`; Tailwind 4 tokens and dark mode defined in `src/app/globals.css` with `next-themes`.
+## Delivery Plan (scoped to Catalog + Search + Autocomplete, future-ready for Product Detail/Cart/Checkout)
+- Phase 0 (Foundation) — DONE: Next.js + TS + Tailwind; aliases via `@/*`; Cosmic client in `src/lib/cosmic`; folder split `src/app`, `src/components`, `src/infra`, `src/lib`, `src/models`, `src/hooks`, `src/types`.
+- Phase 1 (Catalog domain + Cosmic integration) — DONE: Category/Product DTOs, domain models, mappers, `CosmicBaseRepository`, specialized repositories for category and product listing.
+- Phase 2 (Category pages) — PARTIAL: `/categories` and `/categories/[slug]` render listing/detail with subcategories + products; UI basic, can polish cards later.
+- Phase 3 (Search page) — PARTIAL: `/search` exists but only echoes `q`; needs server-side fetch via repositories and result sections with empty state.
+- Phase 4 (Autocomplete) — DONE: API `src/app/(server)/api/v1/search/autocomplete` + client `SearchAutocompleteInput` with debounce and navigation hooks.
+- Phase 5 (Product detail) — NOT STARTED: extend product domain/repo for detail; add `/products/[slug]` using new mapper; reuse listings for related products.
+- Phase 6 (Cart & Checkout) — NOT STARTED: design domain (Cart/Order/Payment), server actions/api, cart UI; keep separate from catalog/search.
+- Phase 7 (Hardening) — TODO: enrich error handling/SEO/logging/testing; currently only Cosmic error logging in `src/infra/cosmic/error.ts`.
+
 ## Project Structure & Module Organization
 - Source lives in `src/` using Next.js App Router + TypeScript.
 - Key folders:
