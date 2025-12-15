@@ -25,7 +25,7 @@
 		"workbench.sideBar.location": "left",
 		"git.enableCommitSigning": true,
 		// MARK: Noise Reduction
-		"editor.hover.enabled": true,
+		"editor.hover.enabled": "on",
 		"workbench.tips.enabled": false,
 		"git.decorations.enabled": false,
 		"explorer.decorations.colors": true,
