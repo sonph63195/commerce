@@ -19,5 +19,11 @@ export interface ProductDto {
       slug: string;
       title: string;
     };
+
+    // --- DETAIL ---
+    description?: string; // HTML or markdown
+    gallery?: string[]; // array of image URLs
+    content?: string; // rich content if any
+    attributes?: Record<string, string>;
   }
 }

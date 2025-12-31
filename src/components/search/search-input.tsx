@@ -5,26 +5,28 @@ import { Input } from "../ui/input";
 
 type SearchInputProps = {
   value: string;
-  onChange: (value: string) => void;
-  onSubmit: (value: string) => void;
-  onFocus?: () => void;
+  onChangeAction: (value: string) => void;
+  onSubmitAction: (value: string) => void;
+  onFocusAction?: () => void;
   placeholder?: string;
   inputId?: string;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
 export function SearchInput({
   value,
-  onChange,
-  onSubmit,
-  onFocus,
+  onChangeAction,
+  onSubmitAction,
+  onFocusAction,
   placeholder = "Tìm sản phẩm, danh mục...",
   inputId = "searchInput",
+  inputProps,
 }: SearchInputProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const q = value.trim();
     if (!q) return;
-    onSubmit(q);
+    onSubmitAction(q);
   };
 
   return (
@@ -37,8 +39,9 @@ export function SearchInput({
         type="search"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onFocus={onFocus}
+        onChange={(e) => onChangeAction(e.target.value)}
+        onFocus={onFocusAction}
+        {...inputProps}
       />
     </form>
   );

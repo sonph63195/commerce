@@ -10,15 +10,33 @@ import {
   TabsTrigger,
 } from "@/components";
 import { categoryRepository } from "@/infra/cosmic/category/category.repo";
+import type { Metadata } from "next";
 import { productListingRepository } from "@/infra/cosmic/product/product-listing.repo";
 import {
   BoxSelectIcon,
   SearchIcon,
   TagIcon,
 } from "lucide-react";
-import { SearchInlineInput } from "@/components/search/search-inline-input";
+import { SearchAutocompleteInput } from "@/components/search/search-autocomplete-input";
 import { SearchCategoryList } from "@/components/search/search-category-list";
 import { SearchProductList } from "@/components/search/search-product-list";
+
+export async function generateMetadata({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }): Promise<Metadata> {
+  const q = searchParams?.q;
+  const query = typeof q === "string" ? q.trim() : "";
+
+  if (query) {
+    return {
+      title: `Search results for "${query}" - Commerce`,
+      description: `Find categories and products matching "${query}" on Commerce.`,
+    };
+  }
+
+  return {
+    title: `Search - Commerce`,
+    description: `Search categories and products on Commerce.`,
+  };
+}
 
 export default async function SearchPage({
   searchParams,
@@ -32,7 +50,7 @@ export default async function SearchPage({
     return (
       <main className="px-6 py-8">
         <div className="flex justify-end mb-6">
-          <SearchInlineInput />
+          <SearchAutocompleteInput inline />
         </div>
         <Empty>
           <EmptyHeader>
@@ -56,6 +74,7 @@ export default async function SearchPage({
 
   const categories = categoriesResult.data;
   const products = productsResult.data;
+
   const totalResults = (categoriesResult.total ?? 0) + (productsResult.total ?? 0);
   const nothingFound = categories.length === 0 && products.length === 0;
   const defaultTab = tabType || products.length > 0  ? "products" : "categories";
@@ -63,7 +82,7 @@ export default async function SearchPage({
   return (
     <main className="px-6 py-8 space-y-8">
       <div className="flex justify-end">
-        <SearchInlineInput initialQuery={query} />
+        <SearchAutocompleteInput inline initialQuery={query} />
       </div>
 
       <header className="space-y-1">

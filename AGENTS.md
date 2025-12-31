@@ -7,12 +7,12 @@
 ## Delivery Plan (scoped to Catalog + Search + Autocomplete, future-ready for Product Detail/Cart/Checkout)
 - Phase 0 (Foundation) — DONE: Next.js + TS + Tailwind; aliases via `@/*`; Cosmic client in `src/lib/cosmic`; folder split `src/app`, `src/components`, `src/infra`, `src/lib`, `src/models`, `src/hooks`, `src/types`.
 - Phase 1 (Catalog domain + Cosmic integration) — DONE: Category/Product DTOs, domain models, mappers, `CosmicBaseRepository`, specialized repositories for category and product listing.
-- Phase 2 (Category pages) — PARTIAL: `/categories` and `/categories/[slug]` render listing/detail with subcategories + products; UI basic, can polish cards later.
-- Phase 3 (Search page) — PARTIAL: `/search` exists but only echoes `q`; needs server-side fetch via repositories and result sections with empty state.
+- Phase 2 (Category pages) — PARTIAL: `/categories` and `/categories/[slug]` render listing/detail with subcategories + products; UI basic, can polish cards.
+- Phase 3 (Search page) — DONE: `/search` page implemented with server-side queries and client components (`SearchAutocompleteInput`, `SearchProductList`, `SearchCategoryList`).
 - Phase 4 (Autocomplete) — DONE: API `src/app/(server)/api/v1/search/autocomplete` + client `SearchAutocompleteInput` with debounce and navigation hooks.
-- Phase 5 (Product detail) — NOT STARTED: extend product domain/repo for detail; add `/products/[slug]` using new mapper; reuse listings for related products.
-- Phase 6 (Cart & Checkout) — NOT STARTED: design domain (Cart/Order/Payment), server actions/api, cart UI; keep separate from catalog/search.
-- Phase 7 (Hardening) — TODO: enrich error handling/SEO/logging/testing; currently only Cosmic error logging in `src/infra/cosmic/error.ts`.
+- Phase 5 (Product detail) — DONE: product detail domain, repo, and `/products/[slug]` page implemented; related products shown via listings.
+- Phase 6 (Cart & Checkout) — PARTIAL: Cart slice and UI (`src/store/cart.slice.ts`, `src/components/cart/*`) and checkout confirmation page (`/checkout/confirmation`) exist; remaining work: server actions, Order/Payment domain, checkout flows, cart persistence and tests.
+- Phase 7 (Hardening) — TODO: add error handling, SEO improvements, logging, and tests (unit/integration/e2e); currently only Cosmic error logging in `src/infra/cosmic/error.ts`.
 
 ## Project Structure & Module Organization
 - Source lives in `src/` using Next.js App Router + TypeScript.

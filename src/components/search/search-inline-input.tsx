@@ -39,8 +39,8 @@ export function SearchInlineInput({ initialQuery = "" }: SearchInlineInputProps)
   return (
     <SearchInput
       value={query}
-      onChange={setQuery}
-      onSubmit={handleSubmit}
+      onChangeAction={setQuery}
+      onSubmitAction={handleSubmit}
     />
   );
 }
