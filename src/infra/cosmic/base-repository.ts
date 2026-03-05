@@ -1,6 +1,6 @@
 import { cosmic } from "@/lib/cosmic";
 import { PaginatedResult } from "@/types/pagination";
-import { CosmicObjectResponse, CosmicObjectsResponse, ListParams } from "./types";
+import { CosmicObjectResponse, CosmicObjectsResponse, InternalListParams } from "./types";
 import { logCosmicError } from "./error";
 
 type Mapper<TDto, TDomain> = (dto: TDto) => TDomain;
@@ -34,7 +34,7 @@ export class CosmicBaseRepository<TDto, TDomain> {
     }
   }
 
-  private buildQuery(params: ListParams) {
+  private buildQuery(params: InternalListParams) {
     let query = cosmic.objects
       .find({ ...params.find ?? {}, type: this.objectType })
       .props(params.props ? '' : this.props ?? '')
@@ -47,7 +47,7 @@ export class CosmicBaseRepository<TDto, TDomain> {
     return query;
   }
 
-  async list(params?: ListParams): Promise<PaginatedResult<TDomain>> {
+  async list(params?: InternalListParams): Promise<PaginatedResult<TDomain>> {
     return this.executeWithHandling(
       async () => {
         const response = await this.buildQuery(params ?? {}).depth(1);

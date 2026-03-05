@@ -2,7 +2,7 @@ import { ProductListing } from "@/models/catalog/product-listing";
 import { CosmicBaseRepository } from "../base-repository";
 import { ProductDto } from "./product-dto";
 import { mapProductDtoToProductListing } from "./product.mapper";
-import { ListParams } from "../types";
+import { InternalListParams } from "../types";
 
 const props = `{
 id
@@ -28,7 +28,7 @@ class ProductListingRepository extends CosmicBaseRepository<ProductDto, ProductL
     super('products', mapProductDtoToProductListing, props);
   }
 
-  async getProductListingsByCategoryId(categoryId: string, params?: ListParams) {
+  async getProductListingsByCategoryId(categoryId: string, params?: InternalListParams) {
     const { skip = 0, limit = 100, ...restPara } = params || {};
     return this.list({
       ...restPara,

@@ -2,7 +2,7 @@ import { Category, CategoryDetail } from "@/models/catalog/category";
 import { mapCategoryDto } from "./category.mapper";
 import { CosmicBaseRepository } from "../base-repository";
 import { CategoryDto } from "./category-dto";
-import { ListParams } from "../types";
+import { InternalListParams } from "../types";
 import { productListingRepository } from "../product/product-listing.repo";
 import { PaginatedResult } from "@/types/pagination";
 
@@ -29,11 +29,11 @@ class CategoryRepository extends CosmicBaseRepository<CategoryDto, Category> {
     super('categories', mapCategoryDto, categoryInfo);
   }
 
-  async getCategories(params?: ListParams) {
+  async getCategories(params?: InternalListParams) {
     return this.list(params)
   }
 
-  async getDetailBySlug(slug: string, params?: ListParams): Promise<CategoryDetail | null> {
+  async getDetailBySlug(slug: string, params?: InternalListParams): Promise<CategoryDetail | null> {
     const category = await this.getBySlug(slug);
     if (!category) return null;
 

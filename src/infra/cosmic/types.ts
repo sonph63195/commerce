@@ -11,7 +11,7 @@ export interface CosmicObjectResponse<TDto> {
   object: TDto;
 }
 
-export interface ListParams {
+export interface InternalListParams {
   limit?: number;
   skip?: number;
   props?: string | string[];
