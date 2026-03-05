@@ -14,6 +14,50 @@
 - Phase 6 (Cart & Checkout) — PARTIAL: Cart slice and UI (`src/store/cart.slice.ts`, `src/components/cart/*`) and checkout confirmation page (`/checkout/confirmation`) exist; remaining work: server actions, Order/Payment domain, checkout flows, cart persistence and tests.
 - Phase 7 (Hardening) — TODO: add error handling, SEO improvements, logging, and tests (unit/integration/e2e); currently only Cosmic error logging in `src/infra/cosmic/error.ts`.
 
+## Remaining Work Breakdown (clear tasks)
+### Phase 2 — Category pages UI polish
+1. Refine category list cards in `src/app/(storefront)/categories`:
+   - Improve hierarchy (title, image, meta).
+   - Add consistent spacing/typography and hover states.
+2. Refine category detail cards in `src/app/(storefront)/categories/[slug]`:
+   - Standardize product/subcategory card layout.
+   - Add empty/edge-state messaging (no subcategories/products).
+3. Ensure responsive layout parity across breakpoints:
+   - Verify grid/stack behavior for list and detail pages.
+   - Confirm consistent spacing with Tailwind tokens.
+
+### Phase 6 — Cart & Checkout completion
+1. Domain modeling:
+   - Add Order/Payment schemas in `src/models` with Zod validation.
+   - Add types and mappers to map API/checkout payloads.
+2. Server actions / API integration:
+   - Create server actions under `src/app/(server)` for cart + checkout.
+   - Validate payloads and return standardized responses.
+3. Checkout flow:
+   - Implement step-based UI (shipping, payment, review).
+   - Connect cart to checkout summary + totals.
+4. Cart persistence:
+   - Persist cart state to storage (localStorage or cookies).
+   - Add hydration logic and reconciliation on load.
+5. UX hardening:
+   - Add loading states, error messages, and disabled actions.
+   - Ensure cart updates are optimistic but resilient.
+
+### Phase 7 — Hardening
+1. Error handling:
+   - Centralize error boundaries for storefront routes.
+   - Add user-friendly fallbacks on fetch failures.
+2. SEO improvements:
+   - Add metadata (title, description, OG) per key page.
+   - Ensure canonical URLs and structured data where relevant.
+3. Logging:
+   - Add structured logging for checkout and cart events.
+   - Capture errors with context (route, payload size, status).
+4. Tests:
+   - Add unit tests for domain models and mappers.
+   - Add integration tests for search and checkout flows.
+   - Add e2e smoke tests for critical storefront flows.
+
 ## Project Structure & Module Organization
 - Source lives in `src/` using Next.js App Router + TypeScript.
 - Key folders:
