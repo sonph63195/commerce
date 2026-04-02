@@ -11,6 +11,12 @@ export function mapProductDtoToProductListing(dto: ProductDto): ProductListing {
     price: dto.metadata?.price,
     originalPrice: dto.metadata?.original_price,
     shortDescription: dto.metadata?.short_description,
+    category: dto.metadata?.category ? {
+      id: dto.metadata.category.id,
+      slug: dto.metadata.category.slug,
+      title: dto.metadata.category.title,
+    } : undefined,
+    attributes: dto.metadata?.attributes,
     createdAt: new Date(dto.created_at),
     modifiedAt: new Date(dto.modified_at),
   }

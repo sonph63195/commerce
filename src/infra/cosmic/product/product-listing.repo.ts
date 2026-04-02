@@ -20,6 +20,7 @@ metadata {
     slug
     title
   }
+  attributes
 }
 }`;
 
@@ -61,4 +62,3 @@ class ProductListingRepository extends CosmicBaseRepository<ProductDto, ProductL
 }
 
 export const productListingRepository = new ProductListingRepository();
-
