@@ -1,62 +1,13 @@
 # Repository Guidelines
 
 ## Project Overview
-- Next.js App Router (Next 16, React 19) with grouping: `src/app/(storefront)`, `src/app/(admin)`, `src/app/(server)` for API routes; `src/app/layout.tsx` attaches Geist fonts, Theme/NextAuth/React Query providers.
-- Data layer integrates Cosmic CMS via `src/lib/cosmic` + `src/infra/cosmic` repositories/mappers; domain models live in `src/models/catalog`.
-- UI uses shadcn-derived primitives in `src/components/ui`, aggregated exports in `src/components/index.ts`; Tailwind 4 tokens and dark mode defined in `src/app/globals.css` with `next-themes`.
-## Delivery Plan (scoped to Catalog + Search + Autocomplete, future-ready for Product Detail/Cart/Checkout)
-- Phase 0 (Foundation) — DONE: Next.js + TS + Tailwind; aliases via `@/*`; Cosmic client in `src/lib/cosmic`; folder split `src/app`, `src/components`, `src/infra`, `src/lib`, `src/models`, `src/hooks`, `src/types`.
-- Phase 1 (Catalog domain + Cosmic integration) — DONE: Category/Product DTOs, domain models, mappers, `CosmicBaseRepository`, specialized repositories for category and product listing.
-- Phase 2 (Category pages) — PARTIAL: `/categories` and `/categories/[slug]` render listing/detail with subcategories + products; UI basic, can polish cards.
-- Phase 3 (Search page) — DONE: `/search` page implemented with server-side queries and client components (`SearchAutocompleteInput`, `SearchProductList`, `SearchCategoryList`).
-- Phase 4 (Autocomplete) — DONE: API `src/app/(server)/api/v1/search/autocomplete` + client `SearchAutocompleteInput` with debounce and navigation hooks.
-- Phase 5 (Product detail) — DONE: product detail domain, repo, and `/products/[slug]` page implemented; related products shown via listings.
-- Phase 6 (Cart & Checkout) — PARTIAL: Cart slice and UI (`src/store/cart.slice.ts`, `src/components/cart/*`) and checkout confirmation page (`/checkout/confirmation`) exist; remaining work: server actions, Order/Payment domain, checkout flows, cart persistence and tests.
-- Phase 7 (Hardening) — TODO: add error handling, SEO improvements, logging, and tests (unit/integration/e2e); currently only Cosmic error logging in `src/infra/cosmic/error.ts`.
-
-## Remaining Work Breakdown (clear tasks)
-### Phase 2 — Category pages UI polish
-1. Refine category list cards in `src/app/(storefront)/categories`:
-   - Improve hierarchy (title, image, meta).
-   - Add consistent spacing/typography and hover states.
-2. Refine category detail cards in `src/app/(storefront)/categories/[slug]`:
-   - Standardize product/subcategory card layout.
-   - Add empty/edge-state messaging (no subcategories/products).
-3. Ensure responsive layout parity across breakpoints:
-   - Verify grid/stack behavior for list and detail pages.
-   - Confirm consistent spacing with Tailwind tokens.
-
-### Phase 6 — Cart & Checkout completion
-1. Domain modeling:
-   - Add Order/Payment schemas in `src/models` with Zod validation.
-   - Add types and mappers to map API/checkout payloads.
-2. Server actions / API integration:
-   - Create server actions under `src/app/(server)` for cart + checkout.
-   - Validate payloads and return standardized responses.
-3. Checkout flow:
-   - Implement step-based UI (shipping, payment, review).
-   - Connect cart to checkout summary + totals.
-4. Cart persistence:
-   - Persist cart state to storage (localStorage or cookies).
-   - Add hydration logic and reconciliation on load.
-5. UX hardening:
-   - Add loading states, error messages, and disabled actions.
-   - Ensure cart updates are optimistic but resilient.
-
-### Phase 7 — Hardening
-1. Error handling:
-   - Centralize error boundaries for storefront routes.
-   - Add user-friendly fallbacks on fetch failures.
-2. SEO improvements:
-   - Add metadata (title, description, OG) per key page.
-   - Ensure canonical URLs and structured data where relevant.
-3. Logging:
-   - Add structured logging for checkout and cart events.
-   - Capture errors with context (route, payload size, status).
-4. Tests:
-   - Add unit tests for domain models and mappers.
-   - Add integration tests for search and checkout flows.
-   - Add e2e smoke tests for critical storefront flows.
+- **Core**: Next.js 16.1 (App Router), React 19.2, TypeScript. Using Turbopack for development.
+- **Routing**: Grouped routes (`(storefront)`, `(admin)`, `(server)`) for clean separation of concerns.
+- **Data Layer**: Cosmic CMS integration via `@cosmicjs/sdk` (v1.6). Repositories and mappers in `src/infra/cosmic` and `src/lib/cosmic`.
+- **UI & Styling**: Tailwind CSS 4, shadcn/ui components (Radix UI), and Framer Motion for animations.
+- **State Management**: Zustand (v5) for client state, TanStack Query (v5) for server state.
+- **Auth & Forms**: NextAuth.js (v4), React Hook Form, and Zod for schema validation.
+- **Tooling**: Biome (v2) for linting/formatting, Yarn as the package manager.
 
 ## Project Structure & Module Organization
 - Source lives in `src/` using Next.js App Router + TypeScript.
@@ -82,6 +33,7 @@
 ## Coding Style & Naming Conventions
 - TypeScript `strict` on; avoid `any`. Validate external data with Zod.
 - Linting & formatting: Biome (formatter + linter). Tailwind for styles; keep utility classes semantic.
+- Break complex pages/sections into focused child components for maintainability and reuse. Prefer keeping route `page.tsx` files thin: fetch data, orchestrate layout, and delegate UI blocks to components in `src/components/pages` or a domain-appropriate component folder.
 - Filenames: kebab-case.
   - Components: `product-card.tsx` (export `ProductCard`).
   - Hooks: `useCart.ts` (`useXyz` pattern).

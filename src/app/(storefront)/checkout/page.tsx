@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useCart } from "@/store/cart.slice";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { formatPrice } from "@/lib/format-price";
 import { trackEvent } from "@/lib/analytics";
+import { useCart } from "@/store/cart.slice";
 
 type FormValues = {
   name: string;
@@ -16,75 +19,116 @@ type FormValues = {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const items = useCart((s) => s.items);
-  const total = useCart((s) => s.getTotal());
-  const clear = useCart((s) => s.clear);
+  const hydrated = useCart((state) => state.hydrated);
+  const selectedItems = useCart((state) => state.getSelectedItems());
+  const total = useCart((state) => state.getTotal());
+  const removeSelectedItems = useCart((state) => state.removeSelectedItems);
 
   const { register, handleSubmit } = useForm<FormValues>();
 
   function onSubmit(data: FormValues) {
-    // create fake order id
     const orderId = `ORD-${Date.now()}`;
 
-    // analytics: order placed
-    trackEvent('order_placed', {
+    trackEvent("order_placed", {
       orderId,
-      total: total,
-      items: items.map(i => ({ productId: i.productId, quantity: i.quantity, price: i.price }))
+      total,
+      customer: data,
+      items: selectedItems.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+      })),
     });
 
-    // we could send to server here
-    clear();
+    removeSelectedItems();
     router.push(`/checkout/confirmation?orderId=${orderId}`);
   }
 
-  if (items.length === 0) {
+  if (!hydrated) {
     return (
-      <div className="container max-w-3xl mx-auto py-8">
-        <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
-        <p>Your cart is empty.</p>
+      <div className="container mx-auto max-w-3xl py-8">
+        <h1 className="mb-4 text-2xl font-semibold">Checkout</h1>
+        <p>Loading cart...</p>
+      </div>
+    );
+  }
+
+  if (selectedItems.length === 0) {
+    return (
+      <div className="container mx-auto max-w-3xl py-8">
+        <h1 className="mb-4 text-2xl font-semibold">Checkout</h1>
+        <p className="mb-4">No products are selected for checkout.</p>
+        <Button asChild variant="outline">
+          <Link href="/cart">Back to cart</Link>
+        </Button>
       </div>
     );
   }
 
   return (
-    <div className="container max-w-3xl mx-auto py-8">
-      <h1 className="text-2xl font-semibold mb-4">Checkout</h1>
+    <div className="container mx-auto max-w-3xl py-8">
+      <h1 className="mb-4 text-2xl font-semibold">Checkout</h1>
+
+      <div className="mb-6 rounded-2xl border border-border/70 bg-muted/20 p-4">
+        <p className="text-sm font-medium">Selected items</p>
+        <div className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
+          {selectedItems.map((item) => (
+            <div key={item.itemKey ?? item.productId} className="flex items-center justify-between gap-4">
+              <span className="truncate">{item.title}</span>
+              <span className="whitespace-nowrap">
+                x{item.quantity} • {formatPrice((item.price ?? 0) * item.quantity)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">
         <div>
-          <label className="block text-sm font-medium">Full name</label>
-          <input {...register('name', { required: true })} className="input w-full" />
+          <label className="mb-1 block text-sm font-medium" htmlFor="checkout-name">
+            Full name
+          </label>
+          <Input id="checkout-name" {...register("name", { required: true })} />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input {...register('email', { required: true })} className="input w-full" />
+          <label className="mb-1 block text-sm font-medium" htmlFor="checkout-email">
+            Email
+          </label>
+          <Input id="checkout-email" {...register("email", { required: true })} />
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Address</label>
-          <input {...register('address', { required: true })} className="input w-full" />
+          <label className="mb-1 block text-sm font-medium" htmlFor="checkout-address">
+            Address
+          </label>
+          <Input id="checkout-address" {...register("address", { required: true })} />
         </div>
 
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-sm font-medium">City</label>
-            <input {...register('city', { required: true })} className="input w-full" />
+            <label className="mb-1 block text-sm font-medium" htmlFor="checkout-city">
+              City
+            </label>
+            <Input id="checkout-city" {...register("city", { required: true })} />
           </div>
           <div>
-            <label className="block text-sm font-medium">Postal code</label>
-            <input {...register('postal', { required: true })} className="input w-full" />
+            <label className="mb-1 block text-sm font-medium" htmlFor="checkout-postal">
+              Postal code
+            </label>
+            <Input id="checkout-postal" {...register("postal", { required: true })} />
           </div>
         </div>
 
         <div className="border-t pt-4">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <div className="font-medium">Order total</div>
-            <div className="text-xl font-bold">{total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+            <div className="text-xl font-bold">{formatPrice(total)}</div>
           </div>
 
-          <button type="submit" className="btn btn-primary w-full">Place order</button>
+          <Button type="submit" className="w-full">
+            Place order
+          </Button>
         </div>
       </form>
     </div>

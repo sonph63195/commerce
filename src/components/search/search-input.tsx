@@ -8,6 +8,7 @@ type SearchInputProps = {
   onChangeAction: (value: string) => void;
   onSubmitAction: (value: string) => void;
   onFocusAction?: () => void;
+  onKeyDownAction?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   inputId?: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
@@ -18,6 +19,7 @@ export function SearchInput({
   onChangeAction,
   onSubmitAction,
   onFocusAction,
+  onKeyDownAction,
   placeholder = "Tìm sản phẩm, danh mục...",
   inputId = "searchInput",
   inputProps,
@@ -41,6 +43,7 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChangeAction(e.target.value)}
         onFocus={onFocusAction}
+        onKeyDown={onKeyDownAction}
         {...inputProps}
       />
     </form>
